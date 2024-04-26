@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-require("../03-mongo/db/index");
+require("./db/index");
 
 const express = require("express");
 const bodyParser = require("body-parser");

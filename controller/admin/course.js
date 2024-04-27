@@ -24,12 +24,13 @@ const CreateCourse = async (req, res) => {
     data.courses.push(c1);
     await data.save();
 
-    console.log(data);
     res
       .status(201)
       .json({ message: "Course created successfully", courseId: c1.id });
   } catch (e) {
-    res.send(e.message);
+    res.status(400).json({
+      msg: e.message,
+    });
   }
 };
 
@@ -48,10 +49,14 @@ const getAdminCourse = async (req, res) => {
     if (data) {
       res.json(data);
     } else {
-      res.send("DB ERROR");
+      res.status(400).json({
+        msg: "DB Error",
+      });
     }
   } catch (e) {
-    res.send(e.message);
+    res.status(400).json({
+      msg: e.message,
+    });
   }
 };
 

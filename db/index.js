@@ -7,7 +7,6 @@ const DB_HOST = process.env.DB_HOST;
 const DB_NAME = process.env.DB_NAME;
 const DB_SET = process.env.DB_SET;
 
-// Construct MongoDB URL from environment variables
 const mongoURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}.${DB_NAME}/?${DB_SET}`;
 
 mongoose
@@ -19,7 +18,6 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-// Define schemasz
 mongoose.set("strictQuery", false);
 
 const CourseSchema = new mongoose.Schema({

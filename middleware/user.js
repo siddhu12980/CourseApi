@@ -4,14 +4,13 @@ async function userMiddleware(req, res, next) {
   const username = req.user.username;
   try {
     const data = await User.findOne({ name: username });
-    console.log(data);
     if (data) {
       next();
     } else {
-      res.send("NO such user exists");
+      res.json({ msg: "NO such user exists" });
     }
   } catch (e) {
-    res.send(e.message);
+    res.status(500).json({ msg: e.message });
   }
 }
 

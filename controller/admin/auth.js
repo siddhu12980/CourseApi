@@ -14,9 +14,11 @@ const signup = async (req, res) => {
       password: password,
     });
     await newAdmin.save();
-    res.json({ message: "Admin created successfully" });
+    res.json({ msg: "Admin created successfully" });
   } else {
-    res.send("user already exists");
+    res.status(400).json({
+      msg: "Admin Already Exists",
+    });
   }
 };
 
@@ -25,17 +27,20 @@ const signin = async (req, res) => {
   const password = req.body.password;
   try {
     const data = await Admin.findOne({ username: username });
-    console.log(data);
     if (data) {
       if ((data.password = password)) {
         var token = jwt.sign({ username: username }, jwtPassword);
         res.json(token);
       }
     } else {
-      res.send("No such user exists");
+      res.status(400).json({
+        msg: "No Such User Exists",
+      });
     }
   } catch (e) {
-    res.send(e.message);
+    res.status(400).json({
+      msg: e.message,
+    });
   }
 };
 

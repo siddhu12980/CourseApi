@@ -11,19 +11,22 @@ const signup = async (req, res) => {
     const data = await User.findOne({ name: username });
 
     if (data) {
-      res.send("USer Already Exists");
+      res.status(400).json({
+        msg: "USer Already Exists",
+      });
     } else {
       const newUser = new User({
         name: username,
         password: password,
       });
-      console.log(newUser);
 
       await newUser.save();
-      res.json({ message: "User created successfully" });
+      res.json({ msg: "User created successfully" });
     }
   } catch (e) {
-    res.send(e.message);
+    res.status(400).json({
+      msg: e.message,
+    });
   }
 };
 
@@ -37,16 +40,14 @@ const signin = async (req, res) => {
     if (data) {
       if (data.password == password) {
         const token = jwt.sign({ username: username }, jwtPassword);
-        console.log(token);
         res.json(token);
       } else {
-        res.send("invalid Password");
       }
     } else {
-      res.send("NO such user exists");
+      res.json({ msg: "No Such User Exists" });
     }
   } catch (e) {
-    res.send(e.message);
+    res.json({ msg: e.message });
   }
 };
 

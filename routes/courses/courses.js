@@ -8,7 +8,7 @@ getallCourses.get("/", async (req, res) => {
     const data = await Course.find({}, { enrolled: 0, __v: 0 });
     res.json(data);
   } catch (e) {
-    res.send(e.message);
+    res.json({ msg: e.message });
   }
 });
 

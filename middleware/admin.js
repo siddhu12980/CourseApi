@@ -4,14 +4,18 @@ async function adminMiddleware(req, res, next) {
   const username = req.user.username;
   try {
     const data = await Admin.findOne({ username: username });
-    console.log(data);
+
     if (data) {
       next();
     } else {
-      console.log("no such user exists");
+      res.status(401).json({
+        msg: "No such user exists",
+      });
     }
   } catch (e) {
-    res.send(e.message);
+    res.json({
+      msg: e.message,
+    });
   }
 }
 

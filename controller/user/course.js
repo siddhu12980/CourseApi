@@ -4,12 +4,9 @@ const purchaseCourse = async (req, res) => {
   const id = req.params.courseId;
   const users = req.user.username;
 
-  console.log(id, users);
-
   try {
     const course = await Course.findById(id);
     const user = await User.findOne({ name: users });
-    console.log(user, course);
 
     if (!course) {
       res.send("No such course Found");
@@ -47,7 +44,7 @@ const myCourses = async (req, res) => {
 
     res.json(data);
   } catch (e) {
-    res.send(e.message);
+    res.json({ msg: e.message });
   }
 };
 

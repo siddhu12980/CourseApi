@@ -9,7 +9,6 @@ const PORT = 3600;
 
 const app = express();
 
-//usally there is no need to login to view Courses:inreal_website
 const { getallCourses } = require("./routes/courses/courses");
 
 const { adminAuthRouter } = require("./routes/admin/auth");
@@ -23,8 +22,17 @@ const userCourseRouter = require("./routes/user/course");
 
 const { jwtverify } = require("./middleware/jwtverify");
 
-// Middleware for parsing jsoon
 app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    msg: "healthy",
+  });
+});
+//using this to crash podss
+app.get("/error", (req, res) => {
+  process.exit(1);
+});
 
 app.use("/admin", adminAuthRouter);
 

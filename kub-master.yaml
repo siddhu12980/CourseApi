@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kub-deploy-api
+spec:
+  selector:
+    app: kub-deploy
+  ports:
+    - protocol: 'TCP'
+      port: 8080
+      targetPort: 3600
+  type: LoadBalancer
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kub-deploy
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: kub-deploy
+  template:
+    metadata:
+      labels:
+        app: kub-deploy
+    spec:
+      containers:
+        - name: kub-deploy-container
+          image: siddjuugi/kub-api
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet: 
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

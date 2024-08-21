@@ -7,7 +7,7 @@ const DB_HOST = process.env.DB_HOST;
 const DB_NAME = process.env.DB_NAME;
 const DB_SET = process.env.DB_SET;
 
-const mongoURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}.${DB_NAME}/?${DB_SET}`;
+const mongoURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}.${DB_NAME}`;
 
 mongoose
   .connect(mongoURL)
@@ -15,7 +15,8 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+    
+    console.error("Error connecting to MongoDB:", error.message);
   });
 
 mongoose.set("strictQuery", false);

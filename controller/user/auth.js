@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const jwtPassword = process.env.JWT_SECRET_KEY;
 
 const signup = async (req, res) => {
-  // Implement user signup logic
   const username = req.body.username;
   const password = req.body.password;
 

@@ -8,9 +8,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3600:3600"
-    environment:
-      - DB_USER=juugi202316701
-      - DB_PASSWORD=Sidd12345
-      - DB_HOST=capi.qqonp
-      - DB_NAME=mongodb.net
-      # - DB_SET="retryWrites=true&w=majority&appName=CApi"

@@ -7,6 +7,7 @@ const signup = async (req, res) => {
   const password = req.body.password;
 
   try {
+    
     const data = await User.findOne({ name: username });
 
     if (data) {
@@ -40,7 +41,7 @@ const signin = async (req, res) => {
       if (data.password == password) {
         const token = jwt.sign({ username: username }, jwtPassword);
         res.json(token);
-      } else {
+      } else { 
       }
     } else {
       res.json({ msg: "No Such User Exists" });

@@ -10,12 +10,15 @@ const DB_SET = process.env.DB_SET;
 const mongoURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}.${DB_NAME}`;
 
 mongoose
-  .connect(mongoURL)
+  .connect(mongoURL, {
+    retryWrites: true,
+    w: "majority",
+    appName: "appName=CApi",
+  })
   .then(() => {
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
-    
     console.error("Error connecting to MongoDB:", error.message);
   });
 
